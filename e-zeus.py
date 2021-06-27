@@ -56,48 +56,7 @@ def setupParser():
 	args = parser.parse_args()
 	return args 
 
-def printStrings():
-	
-	string_tables = PrettyTable()
-	string_tables.field_names = [Fore.GREEN + "String Col 1" + Fore.WHITE, Fore.RED + "String Col 2" + Fore.WHITE, Fore.YELLOW + "String Col 3" + Fore.WHITE]
-	string_file = open("string.txt")
-	string_data = string_file.read()
-	onlyfiles = []
-	switch = 0
-	tmp_string = []
 
-	for dirpath, dirs, files in os.walk("CommonStrings/"):  
-		for filename in files:
-
-			if(".txt" in filename):
-				onlyfiles.append(os.path.join(dirpath,filename))
-
-	for i in onlyfiles:
-			
-		tmp_file = open(i)
-
-		myline = tmp_file.readline()
-		while myline:
-			myline = tmp_file.readline()
-			#print(myline)
-			if(myline.replace("\n", "") in string_data and myline != ""):
-				if(switch == 0):
-					tmp_string.append(myline.replace("\n", ""))
-					switch = 1
-				elif(switch == 1):
-					tmp_string.append(myline.replace("\n", ""))
-					switch = 2
-				else:
-
-					tmp_string.append(myline.replace("\n", ""))
-					switch = 0
-					string_tables.add_row(tmp_string)
-					tmp_string = []
-		tmp_file.close()
-
-	string_file.close()
-	
-	print(string_tables)
 
 def analyze(file_to_analyze):
 
@@ -117,10 +76,15 @@ def zeus(args):
 
 
 	if(args.strings):
-		
 		output = os.system("strings --all "+ args.strings + "> string.txt")
-		printStrings()
-	
+		if(args.verbose):
+			command = "python3 strings.py v"
+			os.system(command)
+		else:
+			command = "python3 strings.py s"
+			os.system(command)
+
+		
 	elif(args.analyze):
 		
 		analyze(args.analyze)
@@ -144,6 +108,6 @@ def zeus(args):
 
 if __name__ == "__main__":
 	
-	os.system("python3 dependencies/ascii.py")
+	#os.system("python3 dependencies/ascii.py")
 	args = setupParser()
 	zeus(args)
