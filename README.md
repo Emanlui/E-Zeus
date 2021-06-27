@@ -14,6 +14,7 @@ Prints out the strings of the file and compares the output with a local database
 python3 e-zeus.py -s [file]
 ```
 ![Strings](https://github.com/Emanlui/E-Zeus/blob/main/images/strings.png?raw=true)
+
 Prints out all the strings but it verifies if the line of the string has at least 7 letters
 ```sh
 python3 e-zeus.py -s -v [file]
