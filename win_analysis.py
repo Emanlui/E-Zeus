@@ -24,7 +24,11 @@ if hex(pe.OPTIONAL_HEADER.Magic) == '0x10b':
     info_table.add_row(["Architecture","32-bit binary"])
 elif hex(pe.OPTIONAL_HEADER.Magic) == '0x20b':
     info_table.add_row(["Architecture","64-bit binary"])
-
+    
+info_table.add_row(["Signature : ", hex(pe.NT_HEADERS.Signature)])
+info_table.add_row(["TimeDateStamp : ", pe.FILE_HEADER.dump_dict()['TimeDateStamp']['Value'].split('[')[1][:-1]])
+info_table.add_row(["NumberOfSections : ", hex(pe.FILE_HEADER.NumberOfSections)])
+info_table.add_row(["Characteristics flags : ", hex(pe.FILE_HEADER.Characteristics)])
 info_table.add_row(["ImageBase : ", hex(pe.OPTIONAL_HEADER.ImageBase)])
 info_table.add_row(["SectionAlignment : ", hex(pe.OPTIONAL_HEADER.SectionAlignment)])
 info_table.add_row(["FileAlignment : ", hex(pe.OPTIONAL_HEADER.FileAlignment)])
