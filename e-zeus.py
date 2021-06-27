@@ -7,7 +7,7 @@ import puremagic as magic
 from colorama import Fore, Style, init
 import yara
 from androguard.core.bytecodes.apk import APK
-from prettytable import PrettyTable
+
 
 def yaraAnalysis(file_to_analyze):
 
@@ -104,9 +104,11 @@ def analyze(file_to_analyze):
 	type_of_the_file = str(magic.magic_file(file_to_analyze))
 
 	# Windows Analysis
-	if "Windows Executable" in type_of_the_file or ".msi" in type_of_the_file or ".dll" in type_of_the_file or ".exe" in type_of_the_file or ".drv" in type_of_the_file or ".sdb" in type_of_the_file or ".sys" in type_of_the_file or ".reg" in type_of_the_file:
+	if "Windows Executable" in type_of_the_file or ".msi" in type_of_the_file or ".dll" in type_of_the_file or ".exe" in type_of_the_file or ".drv" in type_of_the_file or ".ocx " in type_of_the_file or ".sys" in type_of_the_file or ".cpl " in type_of_the_file or ".scr" in type_of_the_file:
 		print(Fore.GREEN + '--- Analyzing Windows executable ---'+Fore.WHITE)
-		yaraAnalysis(file_to_analyze)
+		#yaraAnalysis(file_to_analyze)
+		command = "python3 win_analysis.py " + file_to_analyze
+		os.system(command)
 		
 	elif ".xltx" in type_of_the_file or ".xlam" in type_of_the_file or ".docm" in type_of_the_file or ".dotx" in type_of_the_file or ".pptm" in type_of_the_file or ".xlsm" in type_of_the_file or ".ppt" in type_of_the_file or ".doc" in type_of_the_file or ".xla" in type_of_the_file:
 		print(Fore.GREEN + 'Analyzing Windows document...'+Fore.WHITE)		
